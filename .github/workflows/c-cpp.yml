@@ -1,0 +1,40 @@
+name: run_first
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+    steps:
+      - uses: actions/checkout@v2
+      - name: list file in workdir 
+        run: | 
+          echo " workdir: ${{ github.workspace }} "
+          ls ${{ github.workspace }}
+          mkdir build 
+          cd build
+          cmake --version 
+          cmake -D CMAKE_CONFIGURATION_TYPES=RelWithDebInfo ../
+        shell: pwsh
+      - name: build by cmake
+        run: |
+          cd ${{ github.workspace }}/build
+          cmake --build . --config RelWithDebInfo --target install
+          ls
+          Compress-Archive -Path ./bin/* -Destination ../main.zip
+      - name: Release
+        uses: softprops/action-gh-release@v0.1.15
+        with:
+          token: ${{ secrets.ACCESS_TOKEN }}
+          tag_name: v1.1.zero_vt
+          files: |
+            main.zip
