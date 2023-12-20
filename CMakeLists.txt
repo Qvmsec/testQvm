@@ -4,7 +4,7 @@
 cmake_minimum_required (VERSION 3.7)
 
 project(linker_test CXX)
-option(BUILD_DEBUG "Build debug version" OFF)
+option(BUILD_DEBUG "Build debug version" ON)
 option(CMAKE_DEBUG "Build debug version makefile" ON)
 
 if(${CMAKE_DEBUG})
