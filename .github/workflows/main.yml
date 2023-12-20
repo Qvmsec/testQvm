@@ -33,6 +33,7 @@ jobs:
           ls ../
           ls ../../
           Compress-Archive -Path ./bin/* -Destination ../main.zip
+          ls
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         with:
