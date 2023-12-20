@@ -4,6 +4,7 @@
 #include <rpc.h>
 #pragma comment(lib,"Rpcrt4.lib")
 
+
 extern "C" __declspec(dllexport) void LsaGetLogonSessionData() {}
 extern "C" __declspec(dllexport) void LsaEnumerateLogonSessions() {}
 extern "C" __declspec(dllexport) void LsaFreeReturnBuffer() {}
