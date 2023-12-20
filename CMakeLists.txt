@@ -27,12 +27,10 @@ endif()
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_C_STANDARD 17)
 
-add_subdirectory("CMakeProject1")
-add_subdirectory("hello")
+add_subdirectory("dll")
 set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
 
 INSTALL(
-    TARGETS CMakeProject1 hello
     RUNTIME DESTINATION bin
     LIBRARY DESTINATION bin
     ARCHIVE DESTINATION bin 
