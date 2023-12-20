@@ -27,7 +27,7 @@ jobs:
         shell: pwsh
       - name: build by cmake
         run: |
-          cd ${{ github.workspace }}/build
+          cd ${{ github.workspace }}
           cmake --build . --config RelWithDebInfo --target install
           ls
           Compress-Archive -Path ./* -Destination ./main.zip
