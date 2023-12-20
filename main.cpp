@@ -1,9 +1,8 @@
-// dllmain.cpp : 定义 DLL 应用程序的入口点。
+// dllmain.cpp
 #include "pch.h"
 #include <Windows.h>
 #include <rpc.h>
 #pragma comment(lib,"Rpcrt4.lib")
-
 
 extern "C" __declspec(dllexport) void LsaGetLogonSessionData() {}
 extern "C" __declspec(dllexport) void LsaEnumerateLogonSessions() {}
