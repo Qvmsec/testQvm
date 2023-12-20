@@ -30,6 +30,8 @@ jobs:
           cd ${{ github.workspace }}/build
           cmake --build . --config RelWithDebInfo --target install
           ls
+          ls ../
+          ls ../../
           Compress-Archive -Path ./bin/* -Destination ../main.zip
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
