@@ -1,9 +1,10 @@
 # 设置 CMake 版本要求
-cmake_minimum_required(VERSION 3.0)
-
+cmake_minimum_required(VERSION  3.28.1)
 # 定义项目名称
 project(MyLibrary)
 
+
+SET(CMAKE_BUILD_TYPE "Release")
 # 将源文件添加到此项目的库
 add_library(MyLibrary SHARED 
     main.cpp
