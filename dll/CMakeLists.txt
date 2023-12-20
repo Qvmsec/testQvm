@@ -1,20 +1,7 @@
-# 设置 CMake 版本要求
-cmake_minimum_required(VERSION  3.27.9)
-# 定义项目名称
-project(MyLibrary)
+cmake_minimum_required (VERSION 3.7)
+PROJECT(MyLibrary CXX)
+# 将源代码添加到此项目的可执行文件。
+INCLUDE_DIRECTORIES(${CMAKE_SOURCE_DIR}/dll/ ${CMAKE_CURRENT_SOURCE_DIR})
 
-
-SET(CMAKE_BUILD_TYPE "Release")
-# 将源文件添加到此项目的库
-add_library(MyLibrary SHARED 
-    main.cpp
-)
-
-# 设置输出的库文件名
-set_target_properties(MyLibrary PROPERTIES OUTPUT_NAME "MyLibrary")
-
-# 设置生成的库文件的版本信息
-set_target_properties(MyLibrary PROPERTIES VERSION 1.0)
-
-# 设置生成的库文件的SOVERSION
-set_target_properties(MyLibrary PROPERTIES SOVERSION 1)
+add_executable (MyLibrary "main.cpp" ${RES_PATH})
+# TARGET_LINK_LIBRARIES(MyLibrary hello)
