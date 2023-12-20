@@ -1,20 +1,39 @@
-# 设置 CMake 版本要求
-cmake_minimum_required(VERSION  3.0)
-# 定义项目名称
-project(MyLibrary)
+# CMakeList.txt: 顶层 CMake 项目文件，在此处执行全局配置
+# 并包含子项目。
+#
+cmake_minimum_required (VERSION 3.7)
 
+project(linker_test CXX)
+option(BUILD_DEBUG "Build debug version" OFF)
+option(CMAKE_DEBUG "Build debug version makefile" ON)
 
-SET(CMAKE_BUILD_TYPE "Release")
-# 将源文件添加到此项目的库
-add_library(MyLibrary SHARED 
-    main.cpp
+if(${CMAKE_DEBUG})
+    MESSAGE("Debug makefile ...")
+    set(CMAKE_VERBOSE_MAKEFILE ON CACHE INTERNAL "" FORCE)
+
+endif()
+
+if(${CMAKE_HOST_SYSTEM_NAME} MATCHES "Windows")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_DEBUG} /MT /GS  /Ox /Ob2 /D NDEBUG")
+    # set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/nologo /Ox /favor:blend /MT /W1 /GS- /std:c++11 /DNDEBUG" )
+    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} /INCREMENTAL:NO /MANIFEST:NO /DEBUG:FULL /RELEASE" )
+
+    string(REGEX REPLACE "/RTC1" "" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+    string(REGEX REPLACE "/Zi" "" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+
+endif()
+# string(REGEX REPLACE "/debug" "" CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}") #去除
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_C_STANDARD 17)
+
+add_subdirectory("CMakeProject1")
+add_subdirectory("hello")
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}")
+
+INSTALL(
+    TARGETS CMakeProject1 hello
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION bin
+    ARCHIVE DESTINATION bin 
 )
-
-# 设置输出的库文件名
-set_target_properties(MyLibrary PROPERTIES OUTPUT_NAME "MyLibrary")
-
-# 设置生成的库文件的版本信息
-set_target_properties(MyLibrary PROPERTIES VERSION 1.0)
-
-# 设置生成的库文件的SOVERSION
-set_target_properties(MyLibrary PROPERTIES SOVERSION 1)
