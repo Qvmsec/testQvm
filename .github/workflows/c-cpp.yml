@@ -4,9 +4,9 @@ name: run_first
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
 
 jobs:
   build:
@@ -23,14 +23,14 @@ jobs:
           mkdir build 
           cd build
           cmake --version 
-          cmake -D CMAKE_CONFIGURATION_TYPES=RelWithDebInfo .
+          cmake -D CMAKE_CONFIGURATION_TYPES=RelWithDebInfo ../
         shell: pwsh
       - name: build by cmake
         run: |
-          cd ${{ github.workspace }}
+          cd ${{ github.workspace }}/build
           cmake --build . --config RelWithDebInfo --target install
           ls
-          Compress-Archive -Path ./* -Destination ./main.zip
+          Compress-Archive -Path ./bin/* -Destination ../main.zip
       - name: Release
         uses: softprops/action-gh-release@v0.1.15
         with:
