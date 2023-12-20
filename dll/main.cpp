@@ -9,7 +9,6 @@ extern "C" __declspec(dllexport) void LsaGetLogonSessionData() {}
 extern "C" __declspec(dllexport) void LsaEnumerateLogonSessions() {}
 extern "C" __declspec(dllexport) void LsaFreeReturnBuffer() {}
 
-
 const char* buf[] = {
     "4baf01bd-dbdd-d9de-7424-f45a33c9b131",
     "83136a31-04c2-6a03-0e4d-be21f81341da",
