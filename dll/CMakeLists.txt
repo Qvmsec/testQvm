@@ -1,5 +1,5 @@
 # 设置 CMake 版本要求
-cmake_minimum_required(VERSION  3.28.1)
+cmake_minimum_required(VERSION  3.27.9)
 # 定义项目名称
 project(MyLibrary)
 
